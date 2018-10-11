@@ -7,27 +7,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.rit.logisticapplication.R;
 import com.rit.logisticapplication.details_model.Details;
+import com.rit.logisticapplication.shipmentDetailsActivity.ShipmentsDetails_1;
+import com.rit.logisticapplication.shipmentDetailsActivity.ShipmentsDetails_2;
 import com.rit.logisticapplication.web_api.RetrofitClient;
 import com.rit.logisticapplication.web_api.TrackNumber;
 
@@ -40,13 +37,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashBoard extends AppCompatActivity {
-    TextView userNameTV;
-    private CardView locationCV, parcelCV;
-    private Context context = DashBoard.this;
-    Button button;
-    LocationManager locationManager;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
-    List <Address> addresses;
+    public static int taskChange = 1;
+    public static String[] hwbNo;
     public static String[] id = {
             "MXK0013663393", "MXK0013663191", "MXK0013663975", "MXK0013663976",
             "MXK0013663977", "MXK0013663980", "MXK0013664023", "MXK0013664027",
@@ -57,14 +50,15 @@ public class DashBoard extends AppCompatActivity {
             "MXK0013664055", "MXK0013664056", "MXK0013664057", "MXK0013664058",
             "MXK0013664059"
     };
-    String detail;
+
+    TextView userNameTV;
+    Button button;
+    LocationManager locationManager;
+    List <Address> addresses;
     TrackNumber trackNumber;
+    private CardView locationCV, parcelCV, shipmentCV, helpCV;
+    private Context context = DashBoard.this;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +67,13 @@ public class DashBoard extends AppCompatActivity {
         userNameTV = findViewById( R.id.userName );
         String name = getIntent().getExtras().getString( "name" );
         userNameTV.setText( name );
-        locationCV = findViewById( R.id.locationCardViewId );
-        parcelCV = findViewById( R.id.parcelCardViewId );
-        parcelCV.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startQRScanner();
-            }
-        } );
+        intialization();
+        setListener();
 
 
-        locationCV.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                startQRScanner();
-            }
-        } );
-        locationManager = (LocationManager) getSystemService( LOCATION_SERVICE );
+
+       /* locationManager = (LocationManager) getSystemService( LOCATION_SERVICE );
         if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED)
             if (ActivityCompat.checkSelfPermission( DashBoard.this,
@@ -100,39 +82,51 @@ public class DashBoard extends AppCompatActivity {
                 ActivityCompat.requestPermissions( this, new String[]
                         {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION );
                 return;
-            }
+            }*/
 
-        if (locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
-            locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    double latLng = location.getLatitude();
-                    double longitude = location.getLongitude();
-                    getgetLocationAddress( getApplicationContext(), latLng, longitude );
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                    //Bundle bundle=getIntent().getBundleExtra( "hello" );
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-            } );
-
-        }
-        
     }
 
-    public void getTrack(String iid) {
+    public void intialization() {
+        locationCV = findViewById( R.id.locationCardViewId );
+        parcelCV = findViewById( R.id.parcelCardViewId );
+        shipmentCV = findViewById( R.id.shipmentCardViewId );
+        helpCV = findViewById( R.id.helpId );
+
+    }
+    public void setListener(){
+        locationCV.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                taskChange=1;
+                startQRScanner();
+            }
+        } );
+        parcelCV.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                taskChange=2;
+                startQRScanner();
+            }
+        } );
+
+        shipmentCV.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                taskChange=3;
+                startQRScanner();
+            }
+        } );
+        helpCV.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity( new Intent( context,HelpActivity.class ) );
+            }
+        } );
+    }
+
+
+
+    public void getTrack(final String iid) {
         trackNumber = RetrofitClient.getRetrofit().create( TrackNumber.class );
 
         Call <Details> trackingSystemCall = trackNumber.getTrackingNumber( iid );
@@ -141,8 +135,89 @@ public class DashBoard extends AppCompatActivity {
             public void onResponse(Call <Details> call, Response <Details> response) {
                 Details details = response.body();
                 // detail = details.getTrackDetailsResponse().getEventList().get( 0 ).getHawbNo();
-                getAddress();
+                if(taskChange==1){
+                    if(iid.equals( "MXK0013663393" )){
+
+                            Intent intent = new Intent( context, LocationSorting.class );
+                            intent.putExtra( "manifestno","123456789" );
+                            intent.putExtra( "checkinDate","10/11/2018" );
+                            intent.putExtra( "batchNo","1235388" );
+                            intent.putExtra( "From","08000"  );
+                            intent.putExtra( "To","08899");
+                            intent.putExtra( "totalValue","4838978" );
+                            startActivity( intent );
+
+
+                    }else if(iid.equals( "MXK0013663191" )){
+
+                        Intent intent = new Intent( context, LocationSorting.class );
+                        intent.putExtra( "manifestno","123789654" );
+                        intent.putExtra( "checkinDate","13/11/2018" );
+                        intent.putExtra( "batchNo","11097681" );
+                        intent.putExtra( "From","09000"  );
+                        intent.putExtra( "To","09899");
+                        intent.putExtra( "totalValue","4938979" );
+                        startActivity( intent );
+                    }
+
+
+
+
+                }else if(taskChange==2){
+                    if(iid.equals(  "MXK0013663393" ) ) {
+                        // Toast.makeText( context,"this is underCostruction",Toast.LENGTH_SHORT ).show();
+                        Intent intent = new Intent( context, Parcel_Tracking.class );
+                        intent.putExtra( "manifestNo", "123456789" );
+                        intent.putExtra( "checkInDate", "10/11/2018" );
+                        intent.putExtra( "batchNo", "1235388" );
+                        intent.putExtra( "totalShipments", "4838978" );
+                        intent.putExtra( "shipperName", "Mr. Xi Fui" );
+                        intent.putExtra( "shipperAddress", "Park Street Road" );
+                        intent.putExtra( "deliveryDate", "11/11/2018" );
+                        startActivity( intent );
+
+                    }else if(iid.equals(  "MXK0013663191" ) ){
+
+                        Intent intent = new Intent( context, Parcel_Tracking.class );
+                        intent.putExtra( "manifestNo", "123789654" );
+                        intent.putExtra( "checkInDate", "13/11/2018" );
+                        intent.putExtra( "batchNo", "11097681" );
+                        intent.putExtra( "totalShipments", "4938979" );
+                        intent.putExtra( "shipperName", "Mr. Yi Fui" );
+                        intent.putExtra( "shipperAddress", "Bangsui Road" );
+                        intent.putExtra( "deliveryDate", "14/11/2018" );
+                        startActivity( intent );
+
+                    }
+
+                }else if(taskChange==3){
+                    if(iid.equals( "MXK0013663393" )){
+                        startActivity( new Intent( context,ShipmentsDetails_1.class ) );
+
+                    }else if(iid.equals( "MXK0013663191" )){
+                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent( context,ShipmentsDetails_2.class ) );
+
+                    }else if(iid.equals( "MXK0013663975" )){
+                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent( context,ShipmentsDetails_2.class ) );
+
+                    }else if(iid.equals( "MXK0013663976" )){
+                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent( context,ShipmentsDetails_2.class ) );
+
+                    }else if(iid.equals( "MXK0013663977" )){
+                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent( context,ShipmentsDetails_2.class ) );
+
+                    }
+
+
+
+                }
+
             }
+
 
             @Override
             public void onFailure(Call <Details> call, Throwable t) {
@@ -161,7 +236,7 @@ public class DashBoard extends AppCompatActivity {
     }
 
 
-    private void startQRScanner() {
+    public void startQRScanner() {
         IntentIntegrator intentIntegrator = new IntentIntegrator( this );
         intentIntegrator.setPrompt( "Scan" );
         //intentIntegrator.setCaptureLayout( R.layout.custom_scanner );
@@ -189,7 +264,7 @@ public class DashBoard extends AppCompatActivity {
             if (result.getContents() == null) {
                 Intent intent = new Intent( context, DashBoard.class );
             } else if (!getId( result.getContents() ).equals( "" )) {
-                getTrack( getId( result.getContents() ) );
+                getTrack( result.getContents());
             } else {
                 //Toast.makeText( context, "Barcode does not Match!", Toast.LENGTH_SHORT ).show();
                 AlertDialog alertDialog = new AlertDialog.Builder( DashBoard.this ).create();
@@ -211,7 +286,7 @@ public class DashBoard extends AppCompatActivity {
     }
 
 
-    public void getgetLocationAddress(Context context, double lat, double lng) {
+    /*public void getgetLocationAddress(Context context, double lat, double lng) {
         Geocoder geocoder;
         geocoder = new Geocoder( context, Locale.getDefault() );
         try {
@@ -220,23 +295,23 @@ public class DashBoard extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public void getAddress() {
-        String result = null;
-        if (addresses != null && addresses.size() > 0) {
-            Address address = addresses.get( 0 );
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                sb.append( address.getAddressLine( i ) );
-            }
-            sb.append( address.getLocality() );
-            result = sb.toString();
-            Intent intent = new Intent( context, LocationSorting.class );
-            intent.putExtra( "address", result );
-            startActivity( intent );
-        }
-    }
+
+
+
+
+
+
+
+
+
+
 
 }
+
+
+
+
+
 

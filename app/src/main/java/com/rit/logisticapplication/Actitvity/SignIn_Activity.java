@@ -21,10 +21,14 @@ import butterknife.ButterKnife;
 
 
 import com.rit.logisticapplication.R;
+import com.rit.logisticapplication.database.UserDatabaseManager;
+import com.rit.logisticapplication.models.User;
 
 public class SignIn_Activity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    User user;
+    UserDatabaseManager userDatabaseManager;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_password) EditText _passwordText;
@@ -36,14 +40,23 @@ public class SignIn_Activity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_sign_in );
         ButterKnife.bind( this );
+        userDatabaseManager=new UserDatabaseManager( this );
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                login();
-
+                 user=new User(_nameText.getText().toString(),_passwordText.getText().toString());
+                long insertedRow=userDatabaseManager.addUser( user );
+                if(insertedRow>0){
+                    login();
+                }else{
+                    Toast.makeText(SignIn_Activity.this, "something went wrong!!!", Toast.LENGTH_SHORT).show();
+                }
             }
+
+
+
         });
 
 
@@ -66,9 +79,8 @@ public class SignIn_Activity extends AppCompatActivity {
 
         String name = _nameText.getText().toString();
         String password = _passwordText.getText().toString();
-
-        if(name.equals("admin") &&
-                password.equals("admin")) {
+       boolean userIdentify=userDatabaseManager.findpassword( name,password );
+        if(userIdentify==true) {
             Intent intent = new Intent(getApplicationContext(), DashBoard.class);
             intent.putExtra( "name", name );
             startActivity( intent );

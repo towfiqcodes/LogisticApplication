@@ -17,19 +17,25 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Actitvity.LocationSorting"
             android:label="@string/title_activity_location_sorting" />
-        <activity android:name=".Actitvity.Parcel_Tracking" />
-        <activity android:name=".Actitvity.ShipmentDetailsActivity" />
-        <activity android:name=".Actitvity.SignIn_Activity">
-
-        </activity>
-        <activity android:name=".Actitvity.DashBoard">
-        </activity>
+        <activity
+            android:name=".Actitvity.Parcel_Tracking"
+            android:parentActivityName=".Actitvity.DashBoard" />
+        <activity android:name=".Actitvity.SignIn_Activity" />
+        <activity android:name=".Actitvity.DashBoard" />
+        <activity android:name=".Actitvity.LoginActivity" />
+        <activity android:name=".Actitvity.HelpActivity" />
+        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_1" />
+        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_2" />
+        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_3" />
+        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_4" />
+        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_5"></activity>
     </application>
 
 </manifest>

@@ -1,27 +1,29 @@
 <resources>
     <string name="app_name">Logistic Application</string>
     <string name="title_activity_location_sorting">LocationSorting</string>
-    <string name="checkin_date">CheckIn Date :</string>
-    <string name="batch_no">Batch No :</string>
-    <string name="totalshipment">TotalShipment Value :</string>
-    <string name="shipper_info">Shipper info :</string>
-    <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
 
-        completions."
-    <string name="username">UserName</string>
-    <string name="enter_your_email">enter your email</string>
+    completions."
     <string name="location_sorting">Location Sorting</string>
     <string name="parcel_tracking">Parcel Tracking</string>
     <string name="help">Help</string>
     <string name="shipments_details">Shipments Details</string>
-    <string name="manifestno">ManifestNo:</string>
-    <string name="check_in_date">Check-In Date</string>
+    <string name="manifestno">Manifest No:</string>
+    <string name="check_in_date">Check-In Date :</string>
     <string name="enter_your_name"> Username</string>
 
-
-
-
-
+    <!---help-->
+    <string name="check_internet">
+        -Check your internet connection if you can not view the shipment/tracking details
+    </string>
+    <string name="check_camera">
+        -Check mobile camera if it can detect the barcode or not 
+    </string>
+    <string name="login_inform">
+    -If you can not  login inform LWE manager immedietly
+    </string>
+    <string name="inquiry">
+        -For any kind of inquiry email to Unixus or call them directly
+    </string>
 </resources>

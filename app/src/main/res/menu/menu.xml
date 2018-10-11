@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/item_dashBoard"
+        android:title="DashBoard"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/item_location"
+        android:title="Location Sorting"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/item_parcel"
+        android:title="Parcel Tracking"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+ <item
+        android:id="@+id/item_shipments"
+        android:title="Shipment Details"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/item_help"
+        android:title="Help"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+
+
+
+</menu>

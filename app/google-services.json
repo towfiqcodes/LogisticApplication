@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1058061124753",
+    "firebase_url": "https://logisticapplication-20163.firebaseio.com",
+    "project_id": "logisticapplication-20163",
+    "storage_bucket": "logisticapplication-20163.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058061124753:android:99d204fe3e493412",
+        "android_client_info": {
+          "package_name": "com.rit.logisticapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058061124753-49tv0clk2e4utmuma4q02qv2l63i8uib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rit.logisticapplication",
+            "certificate_hash": "fe9235017a59f6c9774d9dec2471321dd4ee8db7"
+          }
+        },
+        {
+          "client_id": "1058061124753-so9uu4sjcghslt55n2eerkorpugeqth7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc7IhZ4mji4fjap1Glp-SGVYNNcvfKD-Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058061124753-so9uu4sjcghslt55n2eerkorpugeqth7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

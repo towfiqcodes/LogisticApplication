@@ -1,48 +1,40 @@
 package com.rit.logisticapplication.Actitvity;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rit.logisticapplication.R;
-import com.rit.logisticapplication.web_api.TrackNumber;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Parcel_Tracking extends AppCompatActivity {
-    TrackNumber trackNumber;
-    TextView textView;
-    public static List<String> city;
-    String name=null;
+    TextView manifestNo,checkInDate,batchNo,totalShipments,shipperInfo,shipperAddress,delivaryDate;
 
 
-    @SuppressLint({"ResourceAsColor", "ResourceType"})
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_parcel__tracking );
-        textView = findViewById( R.id.text1 );
-        name = getIntent().getExtras().getString( "address" );
+        setContentView( R.layout.parcel_information );
+        manifestNo=findViewById( R.id.manifestId );
+        checkInDate=findViewById( R.id.checkId );
+        batchNo=findViewById( R.id.batchId );
+        totalShipments=findViewById( R.id.totalShipmentsId );
+        shipperInfo=findViewById( R.id.shipperInfoId );
+        shipperAddress=findViewById( R.id.shipperAddressId );
+        delivaryDate=findViewById( R.id.delivaryId );
+
+        manifestNo.setText(getIntent().getExtras().getString( "manifestNo" ) );
+        checkInDate.setText( getIntent().getExtras().getString( "checkInDate" ) );
+        batchNo.setText( getIntent().getExtras().getString( "batchNo" ) );
+        totalShipments.setText( getIntent().getExtras().getString( "totalShipments" ) );
+        shipperInfo.setText( getIntent().getExtras().getString( "shipperName" ) );
+        shipperAddress.setText( getIntent().getExtras().getString( "shipperAddress" ) );
+        delivaryDate.setText( getIntent().getExtras().getString( "deliveryDate" ) );
+
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (name.equalsIgnoreCase(  "Dhaka")){
-            textView.setBackgroundColor( Color.BLUE );
-            textView.setText( name );
 
-
-        }
-        else
-            textView.setBackgroundColor( Color.RED );
-        textView.setText( name );
-    }
 }
 
 

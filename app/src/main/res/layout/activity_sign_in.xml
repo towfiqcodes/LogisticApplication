@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Login"
+                android:text="LogIn"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
@@ -121,7 +121,6 @@
                 android:background="@drawable/signin">
 
                 <TextView
-                    android:id="@+id/btn_Signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
