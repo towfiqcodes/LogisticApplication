@@ -1,45 +1,42 @@
 package com.rit.logisticapplication.Actitvity;
 
-import android.Manifest;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Geocoder;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.CaptureActivity;
+import com.rit.logisticapplication.CameraCaptureActivity;
+import com.rit.logisticapplication.MainActivity;
 import com.rit.logisticapplication.R;
 import com.rit.logisticapplication.details_model.Details;
 import com.rit.logisticapplication.shipmentDetailsActivity.ShipmentsDetails_1;
 import com.rit.logisticapplication.shipmentDetailsActivity.ShipmentsDetails_2;
 import com.rit.logisticapplication.web_api.RetrofitClient;
 import com.rit.logisticapplication.web_api.TrackNumber;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashBoard extends AppCompatActivity {
-    private static final int REQUEST_LOCATION_PERMISSION = 1;
     public static int taskChange = 1;
-    public static String[] hwbNo;
     public static String[] id = {
             "MXK0013663393", "MXK0013663191", "MXK0013663975", "MXK0013663976",
             "MXK0013663977", "MXK0013663980", "MXK0013664023", "MXK0013664027",
@@ -52,9 +49,6 @@ public class DashBoard extends AppCompatActivity {
     };
 
     TextView userNameTV;
-    Button button;
-    LocationManager locationManager;
-    List <Address> addresses;
     TrackNumber trackNumber;
     private CardView locationCV, parcelCV, shipmentCV, helpCV;
     private Context context = DashBoard.this;
@@ -69,21 +63,6 @@ public class DashBoard extends AppCompatActivity {
         userNameTV.setText( name );
         intialization();
         setListener();
-
-
-
-
-       /* locationManager = (LocationManager) getSystemService( LOCATION_SERVICE );
-        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED)
-            if (ActivityCompat.checkSelfPermission( DashBoard.this,
-                                                    Manifest.permission.ACCESS_FINE_LOCATION )
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions( this, new String[]
-                        {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION );
-                return;
-            }*/
-
     }
 
     public void intialization() {
@@ -134,7 +113,6 @@ public class DashBoard extends AppCompatActivity {
             @Override
             public void onResponse(Call <Details> call, Response <Details> response) {
                 Details details = response.body();
-                // detail = details.getTrackDetailsResponse().getEventList().get( 0 ).getHawbNo();
                 if(taskChange==1){
                     if(iid.equals( "MXK0013663393" )){
 
@@ -165,7 +143,6 @@ public class DashBoard extends AppCompatActivity {
 
                 }else if(taskChange==2){
                     if(iid.equals(  "MXK0013663393" ) ) {
-                        // Toast.makeText( context,"this is underCostruction",Toast.LENGTH_SHORT ).show();
                         Intent intent = new Intent( context, Parcel_Tracking.class );
                         intent.putExtra( "manifestNo", "123456789" );
                         intent.putExtra( "checkInDate", "10/11/2018" );
@@ -195,19 +172,15 @@ public class DashBoard extends AppCompatActivity {
                         startActivity( new Intent( context,ShipmentsDetails_1.class ) );
 
                     }else if(iid.equals( "MXK0013663191" )){
-                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
                         startActivity( new Intent( context,ShipmentsDetails_2.class ) );
 
                     }else if(iid.equals( "MXK0013663975" )){
-                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
                         startActivity( new Intent( context,ShipmentsDetails_2.class ) );
 
                     }else if(iid.equals( "MXK0013663976" )){
-                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
                         startActivity( new Intent( context,ShipmentsDetails_2.class ) );
 
                     }else if(iid.equals( "MXK0013663977" )){
-                       // Toast.makeText( context,"this is UnderConstruction"+iid,Toast.LENGTH_SHORT).show();
                         startActivity( new Intent( context,ShipmentsDetails_2.class ) );
 
                     }
@@ -237,9 +210,11 @@ public class DashBoard extends AppCompatActivity {
 
 
     public void startQRScanner() {
-        IntentIntegrator intentIntegrator = new IntentIntegrator( this );
-        intentIntegrator.setPrompt( "Scan" );
-        //intentIntegrator.setCaptureLayout( R.layout.custom_scanner );
+        IntentIntegrator intentIntegrator = new IntentIntegrator( this);
+        intentIntegrator.setDesiredBarcodeFormats( IntentIntegrator.ONE_D_CODE_TYPES );
+        intentIntegrator.setCaptureActivity( CameraCaptureActivity.class );
+        intentIntegrator.setOrientationLocked( false );
+        intentIntegrator.setPrompt( "scan" );
         intentIntegrator.initiateScan();
 
     }
@@ -264,7 +239,7 @@ public class DashBoard extends AppCompatActivity {
             if (result.getContents() == null) {
                 Intent intent = new Intent( context, DashBoard.class );
             } else if (!getId( result.getContents() ).equals( "" )) {
-                getTrack( result.getContents());
+                getTrack( result.getContents() );
             } else {
                 //Toast.makeText( context, "Barcode does not Match!", Toast.LENGTH_SHORT ).show();
                 AlertDialog alertDialog = new AlertDialog.Builder( DashBoard.this ).create();
@@ -278,36 +253,8 @@ public class DashBoard extends AppCompatActivity {
                 } );
                 alertDialog.show();
             }
-
-
         }
-
-
     }
-
-
-    /*public void getgetLocationAddress(Context context, double lat, double lng) {
-        Geocoder geocoder;
-        geocoder = new Geocoder( context, Locale.getDefault() );
-        try {
-            addresses = geocoder.getFromLocation( lat, lng, 1 ); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

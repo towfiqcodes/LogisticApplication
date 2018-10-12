@@ -12,7 +12,8 @@
     <string name="manifestno">Manifest No:</string>
     <string name="check_in_date">Check-In Date :</string>
     <string name="enter_your_name"> Username</string>
-
+    <string name="turn_on_flashlight">Turn on Flashlight</string>
+    <string name="turn_off_flashlight">Turn off Flashlight</string>
     <!---help-->
     <string name="check_internet">
         -Check your internet connection if you can not view the shipment/tracking details
