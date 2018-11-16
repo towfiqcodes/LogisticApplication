@@ -30,18 +30,9 @@
             android:parentActivityName=".Actitvity.DashBoard" />
         <activity android:name=".Actitvity.SignIn_Activity" />
         <activity android:name=".Actitvity.DashBoard" />
-        <activity android:name=".Actitvity.LoginActivity" />
         <activity android:name=".Actitvity.HelpActivity" />
         <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_1" />
-        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_2" />
-        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_3" />
-        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_4" />
-        <activity android:name=".shipmentDetailsActivity.ShipmentsDetails_5" />
-        <activity android:name=".CameraCaptureActivity"
-            android:screenOrientation="sensor"
-            android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <activity android:name=".CameraCaptureActivity"></activity>
     </application>
 
 </manifest>

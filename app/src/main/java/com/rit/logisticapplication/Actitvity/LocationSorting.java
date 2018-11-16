@@ -2,6 +2,7 @@ package com.rit.logisticapplication.Actitvity;
 
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import com.rit.logisticapplication.R;
 import java.util.Arrays;
 
 public class LocationSorting extends AppCompatActivity {
-    TextView fromColorTv, toColorTV,manifestNoTV,checkInDateTV,batchNoTV,totalShipmentsTV;
+    TextView fromColorTv, toColorTV,manifestNoTV,checkInDateTV,batchNoTV,totalShipmentsTV,routingCode;
     String name = null;
     public static String[] From = {"08000", "09000", "10000", "12000", "16200", "16250", "16450", "16500", "16600"};
     public static String[] To = {"08899","09899", "11999", "14499", "16249", "16399", "16499", "16599", "16699"};
@@ -39,12 +40,15 @@ public class LocationSorting extends AppCompatActivity {
         checkInDateTV=findViewById( R.id.checkInDate );
         batchNoTV=findViewById( R.id.batchNo );
         totalShipmentsTV=findViewById( R.id.totalValue );
-        String manifestNo=getIntent().getExtras().getString( "manifestno" );
-        String check=getIntent().getExtras().getString( "checkinDate" );
-        String batch=getIntent().getExtras().getString( "batchNo" );
+        routingCode=findViewById( R.id.routingCodeId );
+        SharedPreferences sharedPreferences =getSharedPreferences( "details", MODE_PRIVATE );
+        String manifest=sharedPreferences.getString( "manifestno" ,null);
+        String checkInDates=sharedPreferences.getString( "checkinDate",null );
+        String batch=sharedPreferences.getString( "batchNo",null );
+
         String totalValue=getIntent().getExtras().getString( "totalValue" );
-        manifestNoTV.setText( manifestNo );
-        checkInDateTV.setText( check );
+        manifestNoTV.setText( manifest );
+        checkInDateTV.setText( checkInDates );
         batchNoTV.setText( batch );
         totalShipmentsTV.setText( totalValue );
 
@@ -62,16 +66,21 @@ public class LocationSorting extends AppCompatActivity {
         Arrays.sort( From );
         if (From[0].equals( from )) {
             fromColorTv.setBackgroundColor( Color.parseColor( Chartreuse ) );
+            routingCode.setText( "SGPB" );
         } else if (From[1].equals( from )) {
             fromColorTv.setBackgroundColor( Color.parseColor( AntiqueWhite ) );
+            routingCode.setText( "KLMB" );
         } else if (From[2].equals( from )) {
             fromColorTv.setBackgroundColor( Color.parseColor( Coral ) );
+            routingCode.setText( "PENB" );
 
         } else if (From[3].equals( from )) {
             fromColorTv.setBackgroundColor( Color.parseColor( Cornsilk ) );
+            routingCode.setText( "BTWB" );
 
         } else if (From[4].equals( from )) {
             fromColorTv.setBackgroundColor( Color.RED );
+            routingCode.setText( "KBRB" );
 
         }
 

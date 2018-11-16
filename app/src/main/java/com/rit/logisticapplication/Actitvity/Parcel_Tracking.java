@@ -1,6 +1,7 @@
 package com.rit.logisticapplication.Actitvity;
 
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,9 +24,10 @@ public class Parcel_Tracking extends AppCompatActivity {
         shipperAddress=findViewById( R.id.shipperAddressId );
         delivaryDate=findViewById( R.id.delivaryId );
 
-        manifestNo.setText(getIntent().getExtras().getString( "manifestNo" ) );
-        checkInDate.setText( getIntent().getExtras().getString( "checkInDate" ) );
-        batchNo.setText( getIntent().getExtras().getString( "batchNo" ) );
+
+        manifestNo.setText(getIntent().getExtras().getString( "number" ) );
+        checkInDate.setText(getIntent().getExtras().getString( "check" ) );
+        batchNo.setText( getIntent().getExtras().getString( "batch")  );
         totalShipments.setText( getIntent().getExtras().getString( "totalShipments" ) );
         shipperInfo.setText( getIntent().getExtras().getString( "shipperName" ) );
         shipperAddress.setText( getIntent().getExtras().getString( "shipperAddress" ) );
