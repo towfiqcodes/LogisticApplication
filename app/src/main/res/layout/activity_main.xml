@@ -30,14 +30,22 @@
         android:textSize="25sp"
         android:layout_marginTop="20dp"
         android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/logo"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/lwe"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dddd"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:background="@drawable/back" />
 
     <ProgressBar
         android:id="@+id/progressBarId"
@@ -46,14 +54,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="60dp"
         android:progressBackgroundTint="@android:color/white"
         android:progressTint="@color/colorPrimaryDark" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="154dp"

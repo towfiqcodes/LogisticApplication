@@ -69,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>

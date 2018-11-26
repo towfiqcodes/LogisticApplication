@@ -21,7 +21,7 @@ public class SummaryList {
     private String shipmentDate;
     @SerializedName("DeliveryDate")
     @Expose
-    private Object deliveryDate;
+    private String deliveryDate;
     @SerializedName("RecipientName")
     @Expose
     private Object recipientName;
@@ -45,7 +45,7 @@ public class SummaryList {
     private String destinationStationCode;
     @SerializedName("DestinationStationDescription")
     @Expose
-    private Object destinationStationDescription;
+    private String destinationStationDescription;
     @SerializedName("DestinationCountryCode")
     @Expose
     private String destinationCountryCode;
@@ -60,7 +60,7 @@ public class SummaryList {
     private String eventDescription;
     @SerializedName("ReasonCode")
     @Expose
-    private Object reasonCode;
+    private String reasonCode;
     @SerializedName("ReasonDescription")
     @Expose
     private String reasonDescription;
@@ -127,11 +127,11 @@ public class SummaryList {
         this.shipmentDate = shipmentDate;
     }
 
-    public Object getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Object deliveryDate) {
+    public void setDeliveryDate(String  deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -191,11 +191,11 @@ public class SummaryList {
         this.destinationStationCode = destinationStationCode;
     }
 
-    public Object getDestinationStationDescription() {
+    public String getDestinationStationDescription() {
         return destinationStationDescription;
     }
 
-    public void setDestinationStationDescription(Object destinationStationDescription) {
+    public void setDestinationStationDescription(String destinationStationDescription) {
         this.destinationStationDescription = destinationStationDescription;
     }
 
@@ -231,11 +231,11 @@ public class SummaryList {
         this.eventDescription = eventDescription;
     }
 
-    public Object getReasonCode() {
+    public String getReasonCode() {
         return reasonCode;
     }
 
-    public void setReasonCode(Object reasonCode) {
+    public void setReasonCode(String reasonCode) {
         this.reasonCode = reasonCode;
     }
 

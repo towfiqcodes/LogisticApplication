@@ -7,6 +7,7 @@
     android:layout_marginTop="25dp"
     android:orientation="vertical"
     tools:context=".Actitvity.LocationSorting">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -14,9 +15,10 @@
         android:background="@drawable/help"
         android:elevation="20dp"
         android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="10dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="10dp">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,13 +28,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location Sorting"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="5dp"
+            android:text="Location Sorting"
             android:textAllCaps="false"
-            android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/userName"
@@ -44,9 +46,9 @@
             android:text="Choong"
             android:textAlignment="textEnd"
             android:textAllCaps="false"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,6 +57,99 @@
             android:src="@drawable/ic_person_white_24dp" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fromColor"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/toColor"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:background="#233c97" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="From :"
+                android:textColor="#004D40"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/fromCodeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="#004D40"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/routingCodeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:gravity="center"
+            android:text="CPFR"
+            android:textColor="#004D40"
+            android:textSize="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="55dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="To :"
+                android:textColor="#004D40"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/toCodeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="#004D40"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,19 +160,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/manifestno"
+            android:text="Transaction Date:"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/manifestNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="1257855665"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
 
     </LinearLayout>
@@ -94,22 +188,21 @@
             android:layout_height="wrap_content"
             android:text="@string/check_in_date"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/checkInDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:text="11/06/2018"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
 
     </LinearLayout>
-
-    <LinearLayout
+<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -119,32 +212,47 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Batch No"
+            android:text="Event Description :"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/batchNo"
+            android:id="@+id/eventDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="80dp"
-            android:text="1109680"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="11/06/2018"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/routingCodeId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="CPFR"
-        android:textColor="#004D40"
-        android:textSize="40dp" />
+        android:text="hawbNo :"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15dp" />
 
+        <TextView
+            android:id="@+id/hawbId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="11/06/2018"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp"  />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,32 +261,56 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/fromColor"
-            android:layout_width="180dp"
-            android:layout_height="150dp"
-            android:background="@color/white" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XR2Agent :"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/toColor"
-            android:layout_width="180dp"
-            android:layout_height="150dp"
-            android:background="#233c97" />
+            android:id="@+id/xr2AgentId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="11/06/2018"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
 
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/totalValue"
+ <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="48348390"
-        android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp"/>
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remarks :"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/remarksId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="11/06/2018"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
+
+
+    </LinearLayout>
+
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="180dp"
-        android:src="@drawable/lwe"/>
+        android:src="@drawable/back" />
 
 
 </LinearLayout>

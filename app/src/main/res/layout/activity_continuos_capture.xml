@@ -30,25 +30,4 @@
         android:onClick="switchFlashlight"
         android:text="@string/turn_on_flashlight" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:hint="Write Something"
-        android:textColor="@color/zxing_result_view"
-        android:textStyle="italic"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
-        android:text="@+id/editText" />
-    <Button
-        android:id="@+id/click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText"
-        android:textColor="@color/zxing_result_view" />
 </RelativeLayout>

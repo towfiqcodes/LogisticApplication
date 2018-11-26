@@ -1,5 +1,7 @@
 package com.rit.logisticapplication.Actitvity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -26,13 +28,15 @@ import com.rit.logisticapplication.models.User;
 
 public class SignIn_Activity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
     User user;
     UserDatabaseManager userDatabaseManager;
+    private Context context=SignIn_Activity.this;
 
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) TextView _loginButton;
+
+    public static SharedPreferences sharedPreferences;
 
 
     @Override
@@ -42,10 +46,18 @@ public class SignIn_Activity extends AppCompatActivity {
         ButterKnife.bind( this );
         userDatabaseManager=new UserDatabaseManager( this );
 
+
+
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                sharedPreferences = context.getSharedPreferences( "name", MODE_PRIVATE );
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString( "name",_nameText.getText().toString());
+                editor.commit();
+                editor.apply();
+
                  user=new User(_nameText.getText().toString(),_passwordText.getText().toString());
                 long insertedRow=userDatabaseManager.addUser( user );
                 if(insertedRow>0){
@@ -82,7 +94,6 @@ public class SignIn_Activity extends AppCompatActivity {
        boolean userIdentify=userDatabaseManager.findpassword( name,password );
         if(userIdentify==true) {
             Intent intent = new Intent(getApplicationContext(), DashBoard.class);
-            intent.putExtra( "name", name );
             startActivity( intent );
         }else {
             Toast.makeText( getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT ).show();
@@ -90,9 +101,7 @@ public class SignIn_Activity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
                         onLoginSuccess();
-                        // onLoginFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);

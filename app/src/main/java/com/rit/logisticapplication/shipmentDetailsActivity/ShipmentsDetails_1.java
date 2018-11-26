@@ -6,8 +6,14 @@ import android.widget.TextView;
 
 import com.rit.logisticapplication.R;
 
+import static com.rit.logisticapplication.Actitvity.LocationSorting.sharedPreferences;
+
 public class ShipmentsDetails_1 extends AppCompatActivity {
-   TextView originStationDescriptionTV,cCityIdTV,cPostCodeIdTV,cStateId,shipmentDateTV,signedName,refTV;
+   TextView userName,
+           originStationDescriptionTV,cCityIdTV,
+           cPostCodeIdTV,cStateId,
+           shipmentDateTV, signedName,
+           packageTV,desTV,reasonTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +26,14 @@ public class ShipmentsDetails_1 extends AppCompatActivity {
         cPostCodeIdTV=findViewById( R.id.cPostCodeId );
         cStateId=findViewById( R.id.cStateId );
         shipmentDateTV=findViewById( R.id.shipmentDate );
+        packageTV=findViewById( R.id.packageId );
+        desTV=findViewById( R.id.destinationDes );
+        reasonTV=findViewById( R.id.reasonCode );
 
-        refTV=findViewById( R.id.refId );
-
+         userName=findViewById( R.id.userName );
+        sharedPreferences =getSharedPreferences( "name", MODE_PRIVATE );
+        String name = sharedPreferences.getString( "name",null );
+        userName.setText( name );
 
         originStationDescriptionTV.setText( getIntent().getExtras().getString( "origin" ) );
         cCityIdTV.setText( getIntent().getExtras().getString( "cCity" ) );
@@ -30,7 +41,8 @@ public class ShipmentsDetails_1 extends AppCompatActivity {
         cStateId.setText( getIntent().getExtras().getString( "cState" ) );
         shipmentDateTV.setText( getIntent().getExtras().getString( "date" ) );
         signedName.setText(  getIntent().getExtras().getString( "signed" ) );
-         refTV.setText(  getIntent().getExtras().getString( "ref" ) );
-
+        packageTV.setText( getIntent().getExtras().getString( "event" ) );
+        desTV.setText( getIntent().getExtras().getString( "destination" ) );
+        reasonTV.setText(getIntent().getExtras().getString( "reasonCode" )  );
     }
 }
